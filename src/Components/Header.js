@@ -1,15 +1,17 @@
 
 import { useEffect, useState } from 'react';
+import {Link} from 'react-router-dom';
 
-function Header() {
+
+function Header(props) {
 
 
 return (
     <div className="header">
         <nav className='navBar'>
-            <div className='home navOption'> Home </div>
-            <div className='products navOption'> Products </div>
-            <div className='cart navOption'> Cart</div>
+            <Link to = "/" className='home navOption'> Home </Link>
+            <Link to = "/Products" className='products navOption'> Products </Link>
+            <Link to = "/Cart" className='cart navOption'> Cart {props.totalItems}</Link>
 
         </nav>
     </div>

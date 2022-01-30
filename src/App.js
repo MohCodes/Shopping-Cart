@@ -3,9 +3,10 @@ import './App.css';
 import Products from "./Components/Products.js"
 import Home from "./Components/Home.js"
 import { useEffect, useState } from 'react';
+import Cart from "./Components/Cart";
 
 
-function App() {
+function App(props) {
 
   const [totalCartItems,setTotalCartItems] = useState(0)
   const [itemsInCart,setItemsInCart] = useState([])
@@ -29,8 +30,11 @@ useEffect(()=>{
     setItemsInCart(itemsInCart=>[...itemsInCart,fakeInfo[idOfItem]])
     setTotalCartItems(totalCartItems+1)
     console.log(itemsInCart)
-
   }
+
+  function getOccurrence(array, value) {
+    return array.filter((v) => (v === value)).length;
+}
 
 
   return (
@@ -39,6 +43,7 @@ useEffect(()=>{
         <Routes>
           <Route path="/" element={<Home totalItems2 = {`(${totalCartItems})`}/>}/>
           <Route path="/Products" element={<Products addToCartItems={addItemToCart} totalItems2 = {`(${totalCartItems})`}/>}/>
+          <Route path = "/Cart" element ={<Cart Itemsa={itemsInCart} totalItems2 = {`(${totalCartItems})`}/>}/>
         </Routes>
       </BrowserRouter>
     </div>

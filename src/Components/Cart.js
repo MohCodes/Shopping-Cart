@@ -33,7 +33,8 @@ function Cart(props) {
             {items}
 
                 <div className="checkOutContainer">
-
+                    <div className="totalItemsCost checks">Total: ${props.totalItemsCost}</div>
+                    <div className="Checkout checks">Check Out</div>
                 </div>
 
             </div>

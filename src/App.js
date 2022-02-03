@@ -11,7 +11,9 @@ function App(props) {
   const [totalCartItems,setTotalCartItems] = useState(0)
   const [itemsInCart,setItemsInCart] = useState([])
   const [fakeInfo,setFakeInfo]= useState([])
+  const [totalItemsCostState,setTotalItemsCostState] = useState(0)
 
+  
 
 
   async function productInformationCall(){
@@ -29,6 +31,7 @@ useEffect(()=>{
     const idOfItem = e.target.parentNode.parentNode.parentNode.id
     setItemsInCart(itemsInCart=>[...itemsInCart,fakeInfo[idOfItem]])
     setTotalCartItems(totalCartItems+1)
+    findTotalCost()
     console.log(itemsInCart)
   }
 
@@ -37,7 +40,14 @@ const addQuantity = (e)=>{
   const idOfItem = e.target.parentNode.parentNode.id
   setItemsInCart(itemsInCart=>[...itemsInCart,fakeInfo[idOfItem]])
   setTotalCartItems(totalCartItems+1)
+  findTotalCost()
+  console.log(itemsInCart)
+}
 
+const findTotalCost = ()=>{
+  const totalCost = itemsInCart.map(items => items.price)
+  const totalCosta = totalCost.reduce((a,b)=> a+b,0)
+  setTotalItemsCostState(totalCosta.toFixed(2))
 }
 
 const deleteQuantity = (e) =>{
@@ -47,9 +57,7 @@ const deleteQuantity = (e) =>{
   let cartNewArray = [...itemsInCart.slice(0, indexOfItemInCart), ...itemsInCart.slice(indexOfItemInCart + 1)]
   setItemsInCart(cartNewArray)
   setTotalCartItems(totalCartItems-1)
-
-  // console.log(fakeInfo[idOfItem])
-  // console.log(itemsInCart)
+  findTotalCost()
 
 }
 
@@ -60,7 +68,7 @@ const deleteQuantity = (e) =>{
         <Routes>
           <Route path="/" element={<Home totalItems2 = {`(${totalCartItems})`}/>}/>
           <Route path="/Products" element={<Products addToCartItems={addItemToCart} totalItems2 = {`(${totalCartItems})`}/>}/>
-          <Route path = "/Cart" element ={<Cart deleteItemCart={deleteQuantity} addItemCart={addQuantity} Itemsa={itemsInCart} totalItems2 = {`(${totalCartItems})`}/>}/>
+          <Route path = "/Cart" element ={<Cart totalItemsCost={totalItemsCostState} deleteItemCart={deleteQuantity} addItemCart={addQuantity} Itemsa={itemsInCart} totalItems2 = {`(${totalCartItems})`}/>}/>
         </Routes>
       </BrowserRouter>
     </div>

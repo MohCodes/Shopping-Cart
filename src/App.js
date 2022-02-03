@@ -32,8 +32,25 @@ useEffect(()=>{
     console.log(itemsInCart)
   }
 
-  function getOccurrence(array, value) {
-    return array.filter((v) => (v === value)).length;
+
+const addQuantity = (e)=>{
+  const idOfItem = e.target.parentNode.parentNode.id
+  setItemsInCart(itemsInCart=>[...itemsInCart,fakeInfo[idOfItem]])
+  setTotalCartItems(totalCartItems+1)
+
+}
+
+const deleteQuantity = (e) =>{
+
+  const idOfItem = (parseInt(e.target.parentNode.parentNode.id))
+  const indexOfItemInCart = itemsInCart.findIndex(obj=>obj.id === (idOfItem+1))
+  let cartNewArray = [...itemsInCart.slice(0, indexOfItemInCart), ...itemsInCart.slice(indexOfItemInCart + 1)]
+  setItemsInCart(cartNewArray)
+  setTotalCartItems(totalCartItems-1)
+
+  // console.log(fakeInfo[idOfItem])
+  // console.log(itemsInCart)
+
 }
 
 
@@ -43,7 +60,7 @@ useEffect(()=>{
         <Routes>
           <Route path="/" element={<Home totalItems2 = {`(${totalCartItems})`}/>}/>
           <Route path="/Products" element={<Products addToCartItems={addItemToCart} totalItems2 = {`(${totalCartItems})`}/>}/>
-          <Route path = "/Cart" element ={<Cart Itemsa={itemsInCart} totalItems2 = {`(${totalCartItems})`}/>}/>
+          <Route path = "/Cart" element ={<Cart deleteItemCart={deleteQuantity} addItemCart={addQuantity} Itemsa={itemsInCart} totalItems2 = {`(${totalCartItems})`}/>}/>
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { HashRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 import Products from "./Components/Products.js"
 import Home from "./Components/Home.js"
@@ -64,13 +65,13 @@ const deleteQuantity = (e) =>{
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<Home totalItems2 = {`(${totalCartItems})`}/>}/>
           <Route path="/Products" element={<Products addToCartItems={addItemToCart} totalItems2 = {`(${totalCartItems})`}/>}/>
           <Route path = "/Cart" element ={<Cart totalItemsCost={totalItemsCostState} deleteItemCart={deleteQuantity} addItemCart={addQuantity} Itemsa={itemsInCart} totalItems2 = {`(${totalCartItems})`}/>}/>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
